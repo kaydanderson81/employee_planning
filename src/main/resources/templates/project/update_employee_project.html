@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Update Employee Project</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/4.5.0/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/font-awesome/6.4.0/css/fontawesome.min.css}"/>
+    <link rel="stylesheet" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/navbar.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/addProject.css}">
+</head>
+<body>
+<div th:replace="/fragments/chartNavbar :: navbar"></div>
+<div class="container">
+    <div>
+        <h3>Update Employee Project</h3>
+        <div id="alert" class="alert alert-warning alert-dismissible date show" role="alert" th:text="${failed}" th:if="${failed}"></div>
+        <div>
+            <p>
+                <label>Employee Name: [[${employee.name}]]</label>
+            </p>
+            <p>
+                <label>Currently contracted from: [[${employee.contractedFrom}]] to [[${employee.contractedTo}]]</label>
+            </p>
+        </div>
+    </div>
+    <hr>
+        <form action="#" th:action="@{/ines/updateEmployeeProject/{id}(id=${employeeProject.id})}" th:object="${employeeProject}"
+              method="POST">
+                <div class="row">
+                    <div class="col-sm-7">
+                        <h4>Current Projects</h4>
+                    </div>
+                    <div class="col-sm-5">
+                        <h4>Update Project</h4>
+                        <hr>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-7">
+                        <table class="table table-responsive">
+                            <tr>
+                                <th>Project name:</th>
+                                <th>Start date:</th>
+                                <th>End date:</th>
+                                <th>Booking Confirmed:</th>
+                            </tr>
+                            <tr th:each="emplProj : ${employeeSavedProject}">
+                                <td type="text" th:text="${emplProj.project.name}" th:value="${emplProj.id}"></td>
+                                <td type="text" th:text="${emplProj.employeeProjectStartDate}" th:value="${emplProj.id}"></td>
+                                <td type="text" th:text="${emplProj.employeeProjectEndDate}" th:value="${emplProj.id}"></td>
+                                <td th:switch="${emplProj.confirmBooking}">
+                                    <span type="text" th:case="true">Yes</span>
+                                    <span type="text" th:case="false">No</span>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+                    <div class="col-5">
+                        <input type="hidden" th:field="*{id}" />
+                        <input type="hidden" th:field="*{employee.id}" />
+                        <div class="row">
+                            <div class="col-10">
+                                <label>Project Name: </label>
+                                <label>[[${employeeProject.employeeProjectName}]]</label>
+                            </div>
+                            <div class="col-10">
+                                <label>Booking confirmed?</label>
+                                <label>
+                                    <input type="checkbox" name="bookingConfirm" th:field="*{confirmBooking}" th:value="*{confirmBooking}">
+                                </label>
+                            </div>
+                            <div class="col-10">
+                                <div class="form-group form-inline">
+                                    <label>PM</label>
+                                    <label>
+                                        <input type="number" name="percentage" th:field="*{percentage}" required
+                                               th:value="${employeeProject.percentage}" class="col-4" id="percentage">
+                                        %</label>
+                                </div>
+                            </div>
+                            <div class="col-10">
+                                <label>
+                                    <input type="date" th:field="*{employeeProjectStartDate}" required="required"
+                                           th:value="*{employeeProjectStartDate}" class="form-control">
+                                </label>
+                                <label>
+                                    <input type="date" th:field="*{employeeProjectEndDate}" required="required"
+                                           th:value="*{employeeProjectEndDate}" class="form-control">
+                                </label>
+                            </div>
+                        <div>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <button type="submit" class="btn btn-info">Update Employee</button>
+            </div>
+            </div>
+        </form>
+    <hr>
+    <div>
+        <a th:href = "@{/ines/employees}"> Back to Employee List</a>
+    </div>
+</div>
+<script type="text/javascript" th:src="@{/js/jquery-3.6.0.js}"></script>
+<script type="text/javascript" th:src="@{/js/bootstrap/bootstrap.min.js}"></script>
+<script th:src="@{/js/employee.js}"></script>
+</body>
+</html>

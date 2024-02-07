@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/4.5.0/css/bootstrap.min.css}"/>
+	<link rel="stylesheet" type="text/css" th:href="@{/webjars/font-awesome/6.4.0/css/fontawesome.min.css}"/>
+	<link rel="stylesheet" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css}">
+	<link rel="stylesheet" type="text/css" th:href="@{/css/navbar.css}">
+	<link rel="stylesheet" type="text/css" th:href="@{/css/employees.css}">
+	<title>InES Employee</title>
+</head>
+<body>
+	<div th:replace="/fragments/chartNavbar :: navbar"></div>
+	<div class="container">
+		<h3>Save Employee</h3>
+		<hr>
+		<div id="alert" class="alert alert-warning alert-dismissible date show" role="alert" th:text="${failed}" th:if="${failed}"></div>
+		<div class="row d-flex justify-content-evenly">
+			<div>
+				<form action="#" th:action="@{/ines/saveEmployee}" th:object="${employee}"
+					  method="POST">
+					<div class="row">
+						<div class="col-sm-5">
+							<h4>Employee Details</h4>
+						</div>
+						<div class="col-sm-5 offset-sm-2 col-md-6 offset-md-0">
+							<h4>Project Details</h4>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-sm-5">
+							<label>First Name</label>
+							<input type="text" th:field="*{firstName}"
+								   placeholder="First Name" required="required"  class="form-control col-8 mb-4" th:value="*{firstName}">
+							<label>Last Name</label>
+							<input type="text" th:field="*{lastName}"
+								   placeholder="Last Name" required="required"  class="form-control col-8 mb-4">
+							<label>Employee Contract Start Date</label>
+							<input type="date" th:field="*{contractedFrom}"
+								   placeholder="Contracted From" required="required"  class="form-control col-8 mb-4">
+							<label>Project Contract End Date</label>
+							<input type="date" th:field="*{contractedTo}"
+								   placeholder="Contracted To" required="required"  class="form-control col-8 mb-4">
+						</div>
+						<div class="col-sm-7">
+							<div class="row d-flex justify-content-around">
+								<th:block th:object="${employeeProjects}">
+									<div id="projectToAdd" class="col-sm-12">
+										<div class="form-group blu-margin">
+											<div class="form-group blu-margin">
+												<div>
+													<select class="form-control col-6 mb-4" th:field="*{project}" required>
+														<option value="">Select Project</option>
+														<option th:each="project : ${projects}" th:value="${project.id}" th:text="${project.name}"></option>
+													</select>
+												</div>
+												<div class="col-10">
+													<div class="form-group form-inline">
+														<label>Booking confirmed?</label>
+														<label>
+															<input type="checkbox" name="bookingConfirm" th:field="*{confirmBooking}">
+														</label>
+													</div>
+												</div>
+												<div class="col-10">
+													<div class="form-group form-inline">
+														<label>Person Months</label>
+														<label>
+															<input type="number" name="percentage" th:field="*{percentage}" class="col-4" id="percentage">
+														%</label>
+													</div>
+												</div>
+												<div>
+													<input type="date" th:field="*{employeeProjectStartDate}" required="required"
+														   th:value="${employeeProjectStartDate}" class="form-control col-6 mb-4">
+													<input type="date" th:field="*{employeeProjectEndDate}" required="required"
+														   th:value="${employeeProjectEndDate}" class="form-control col-6 mb-4">
+												</div>
+											</div>
+										</div>
+
+									</div>
+								</th:block>
+							</div>
+							<p>
+								Click Save Employee once all employee and project information is added.
+							</p>
+							<button type="submit" id="saveButton" class="btn btn-info col-4">Save Employee</button>
+						</div>
+					</div>
+
+				</form>
+			</div>
+		</div>
+		<hr>
+		<a th:href = "@{/ines/employees}"> Back to Employee List</a>
+		<hr>
+	</div>
+	<script type="text/javascript" th:src="@{/js/jquery-3.6.0.js}"></script>
+	<script type="text/javascript" th:src="@{/js/bootstrap/bootstrap.min.js}"></script>
+	<script th:src="@{/js/employee.js}"></script>
+</body>
+</html>

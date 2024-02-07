@@ -1,0 +1,10 @@
+17-06-23
+Added percentage to the addProjectToEmployee, but need to finish and refactor.
+
+7-9-23
+Add arrow for sorting: Done
+Project chart alphabetical: Done
+Archive ines/employees page (leave employeeProject chart), same as projects: Done
+Add Kostenstelle custom year object with year and months (double), every year requires a different PM.
+
+!!!CHANGE DATABASE!!!

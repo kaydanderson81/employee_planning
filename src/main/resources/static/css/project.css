@@ -1,0 +1,89 @@
+table {
+    font-size: 12px;
+}
+
+#tableRow th {
+    padding: 10px; /* Adjust the padding as needed */
+    vertical-align: middle; /* Center vertically within the cell */
+}
+
+#tableRow th a {
+    display: inline-block; /* Ensures the link text and icon are treated as blocks */
+    vertical-align: middle; /* Center the link text and icon vertically */
+}
+
+#yellowWarning {
+    color: #ffd43b;
+}
+
+#deleteButton {
+    color: #fe635f;
+    font-size: 17px;
+}
+
+#deleteButton:hover {
+    color: red !important;
+}
+
+#updateProject {
+    font-size: 17px;
+    text-decoration: none;
+}
+
+
+
+h1 a {
+    color: black;
+}
+
+h1:hover a {
+    color: #343a40;
+    text-decoration: none;
+}
+
+form input {
+    max-width: 300px;
+}
+
+#commentTextArea {
+    max-width: 700px;
+    height: 150px;
+}
+
+form .input-group-addon {
+    width: 0%;
+}
+
+#projectArchive div input {
+    margin-left : 10px;
+
+}
+
+#archiveButton div{
+    margin: 7px;
+}
+
+#unarchive {
+    color: #28a745;
+    font-size: 17px;
+}
+
+#archiveText {
+    margin-left: 10px;
+    font-size: 10px;
+}
+
+#customDelete {
+    color: #fe635f;
+}
+
+#customProjectText {
+    font-size: 13px;
+}
+
+
+
+
+
+
+

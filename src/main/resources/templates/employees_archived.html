@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/4.5.0/css/bootstrap.min.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/webjars/font-awesome/6.4.0/css/fontawesome.min.css}"/>
+    <link rel="stylesheet" th:href="@{https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/navbar.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/employees.css}">
+    <title>InES Employee Archived</title>
+</head>
+<body>
+<div th:replace="/fragments/chartNavbar :: navbar"></div>
+<div class="container my-2">
+    <h1>Archived Employees List</h1>
+
+    <a th:href = "@{/ines/employees}" class="btn btn-primary btn-sm mb-3">Employees Main</a>
+    <div th:each="employee : ${listEmployees}">
+        <button th:id="'employee-' + ${employee.id}" class="accordion"
+                th:classappend="${employee.id.toString() eq param.updatedEmployeeId} ? 'open' : ''">
+            <div id="employeeDetails" class="row">
+                <div id="name" class="col-sm-8">
+                    <p><strong>Employee Name:</strong>
+                        <a th:text="${employee.firstName + ' ' + employee.lastName}"></a>
+                    </p>
+                </div>
+                <div id="addProjectHeader" class="col-sm-4">
+                    <p><strong>Un-archive Employee</strong>
+                </div>
+            </div>
+            <div id="archiveAccordion" class="row">
+                <div class="col-sm-4">
+                    <p><strong>Contracted From:</strong>
+                        <a th:text="${employee.contractedFrom}"></a>
+                    </p>
+                </div>
+                <div class="col-sm-4">
+                    <p><strong> Contracted To: </strong>
+                        <a th:text="${employee.contractedTo}"></a>
+                    </p>
+                </div>
+                <div class="col-sm-4" id="unarchiveButton">
+                    <a th:href="@{/ines/unarchiveEmployee/{unarchiveEmployeeId}(unarchiveEmployeeId=${employee.id})}"
+                       id="unarchive" class="table-link">
+                        <span class="fa-stack">
+                            <i class="fa fa-square fa-stack-2x"></i>
+                            <i class="fa fa-rotate-left fa-stack-1x fa-inverse" title="Un-archive this project"></i>
+                        </span>
+                    </a>
+                </div>
+            </div>
+        </button>
+        <div class="panel">
+            <table id="employeeProjectInfo" class="table table-bordered col-md-10">
+                <tr>
+                    <th>Project Number</th>
+                    <th>Project Name</th>
+                    <th>Start Date</th>
+                    <th>End Date</th>
+                    <th>Project Person Months</th>
+                    <th>[[${employee.firstName}]]'s Project Booked Months</th>
+                </tr>
+
+                <tr th:each="proj : ${employee.employeeProjects}" th:style="${proj.confirmBooking == false} ? 'color: #8d8989' : ''">
+
+                    <td th:text="${proj.project.projectNumber}"></td>
+                    <td th:text="${proj.project.name}"></td>
+                    <td th:text="${proj.project.startDate}"></td>
+                    <td th:text="${proj.project.endDate}"></td>
+                    <td >
+                        <p>Total Months:
+                            <strong><a th:text="${proj.project.projectLengthInMonths}"></a></strong>
+                        </p>
+                        <p>Currently Used:
+                            <strong><a th:style="${proj.project.currentBookedMonths > proj.project.projectLengthInMonths ? 'color: red;' : _ }"
+                                       th:text="${proj.project.currentBookedMonths}"></a></strong>
+                        </p>
+                        <p>Remaining Months:
+                            <strong><a th:style="${proj.project.remainingBookedMonths < 0 ? 'color: red;' : _ }"
+                                       th:text="${proj.project.remainingBookedMonths}"></a></strong>
+                        </p>
+                    </td>
+                    <td>
+                        <p>No months:
+                            <strong><a th:if="${proj.percentage == 100 || proj.percentage == 0}" th:text="${proj.employeeBookedMonths}"></a></strong>
+                            <strong><a th:unless="${proj.percentage == 100 || proj.percentage == 0}" th:text="${proj.employeeBookedMonths + ' (' + proj.percentage + '%)'}"></a></strong>
+                        </p>
+                        <p>From:
+                            <strong><a th:text="${proj.employeeProjectStartDate}"></a></strong>
+                        </p>
+                        <p>To:
+                            <strong><a th:text="${proj.employeeProjectEndDate}"></a></strong>
+                        </p>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <br>
+    </div>
+</div>
+
+<div th:replace="/fragments/deleteEmployeeProjectModal :: deleteProjectModal"></div>
+
+<script type="text/javascript" th:src="@{/js/jquery-3.6.0.js}"></script>
+<script type="text/javascript" th:src="@{/js/bootstrap/bootstrap.min.js}"></script>
+<script th:src="@{/js/employees.js}"></script>
+<script th:src="@{/js/modal.js}"></script>
+</body>
+</html>
