@@ -17,36 +17,48 @@
 </head>
 <body>
 <div th:replace="/fragments/chartNavbar :: navbar"></div>
-<div class="container">
+<div class="container-fluid">
         <div class="d-flex">
             <h2>Chart for [[${currentYear}]]</h2>
         </div>
-        <div class="d-flex">
+        <div class="row align-items-center">
             <div id="selectYear" class="p-2">
-                <p>Select Sheet Year:</p>
+                <p>Select Year:</p>
             </div>
             <div class="p-2">
                 <form th:action="@{/ines/chart}" th:object="${chartYear}" method="get">
-                    <select class="form-control" id="year" name="year" onchange="this.form.submit()">
-                        <option></option>
-                        <option th:each="year : ${yearList}" th:value="${year}"
-                                th:text="${year}" th:selected="${year == currentYear}">
+                    <div class="row">
+                        <label for="year"></label>
+                        <select class="form-control" id="year" name="year" onchange="this.form.submit()">
+                            <option></option>
+                            <option th:each="year : ${yearList}" th:value="${year}"
+                                    th:text="${year}" th:selected="${year == currentYear}">
 
-                        </option>
-                    </select>
+                            </option>
+                        </select>
+                    </div>
                 </form>
             </div>
         </div>
-        <div class="myChartDiv">
-            <canvas id="myChart" width="900" height="600"></canvas>
+        <div id="charts" class="row align-items-end">
+            <div class="col-5">
+                <div>
+                    <h3>Employee Project Months for year: [[${currentYear}]]</h3>
+                </div>
+                <div class="myChartDiv">
+                    <canvas id="myChart" width="900" height="600"></canvas>
+                </div>
+            </div>
+            <div class="col-5">
+                <div>
+                    <h3>Project Months for year: [[${currentYear}]] with Employee Booked Months</h3>
+                </div>
+                <div class="myBarChart">
+                    <canvas id="myBarChart"></canvas>
+                </div>
+            </div>
         </div>
     <hr>
-        <div>
-            <h3>Project Months for year: [[${currentYear}]] with Employee Booked Months</h3>
-        </div>
-        <div>
-            <canvas id="myBarChart"></canvas>
-        </div>
 
 </div>
     <script th:inline="javascript">

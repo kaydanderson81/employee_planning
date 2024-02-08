@@ -1,5 +1,3 @@
-console.log("Employees: " + JSON.stringify(listEmployees));
-
 var chartData = {
   labels: [],
   datasets: []

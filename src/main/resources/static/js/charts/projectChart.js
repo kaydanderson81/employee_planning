@@ -1,4 +1,4 @@
-console.log("List of projects: " + JSON.stringify(listProjects));
+
 const projectLabels = listProjects.reduce(function(result, item) {
   result.push(item.name);
   return result;

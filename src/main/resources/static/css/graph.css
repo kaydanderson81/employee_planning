@@ -3,7 +3,20 @@
   max-height: 600px;
 }
 
+.myBarChart {
+  max-width: 800px;
+  max-height: 600px;
+}
+
+#selectYear {
+    margin: 20px
+}
+
 #year {
     width: 85px;
     height: 35px;
+}
+
+#charts .col-5 > div {
+    padding-left: 40px;
 }
